@@ -14,16 +14,32 @@ class Quiz extends StatefulWidget{
 //leading underscore used to define private class
 //classname + state is nsaminig convention
 class _QuizState extends State<Quiz>{
-Widget activeScreen = const StartScreen(switchScreen);//widget are also normal objects hence can be assigned to variables
+     var activeScreen =  'start-screen';//widget are also normal objects hence can be assigned to variables
+
+// @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//      activeScreen =  StartScreen(switchScreen);//widget are also normal objects hence can be assigned to variables
+
+//   }
 
 void switchScreen (){
   //this setState method will run build method again
 setState(() {
-  activeScreen = const QuestionsScreen();
+    activeScreen = 'questions-screen';
+
+  // activeScreen = const QuestionsScreen();
 });
 }
   @override
   Widget build(context) {
+
+Widget ScreenWidget= StartScreen(switchScreen);
+
+if(activeScreen =='questions-screen')
+      ScreenWidget = const QuestionsScreen() ;
+  
 
 return MaterialApp(
   title: "Quiz APP",
@@ -39,7 +55,7 @@ return MaterialApp(
           end: Alignment.bottomRight
           ),
       ),
-      child:activeScreen,
+      child:ScreenWidget,
       )
     )
   ); }
