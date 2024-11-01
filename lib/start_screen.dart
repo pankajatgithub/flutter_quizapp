@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StartScreen extends StatelessWidget {
   //first is positional argument,which is a void return function, second is named argument
@@ -32,10 +33,10 @@ final void Function() startQuiz;
           const SizedBox(
             height: 80,
           ),
-          const Text(
+           Text(
             "Learn Flutter in fun way!",
-            style: TextStyle(
-                color: Color.fromARGB(255, 237, 223, 252), 
+            style: GoogleFonts.lato(
+                color: const Color.fromARGB(255, 237, 223, 252), 
                 fontSize: 24,
                 ),
           ),
