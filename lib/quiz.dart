@@ -1,63 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/data/questions.dart';
 import 'package:flutter_quizapp/question_screen.dart';
 import 'package:flutter_quizapp/start_screen.dart';
-class Quiz extends StatefulWidget{
+import 'package:flutter_quizapp/models/results_screen.dart';
+
+class Quiz extends StatefulWidget {
   const Quiz({super.key});
 
-  
   @override
   State<Quiz> createState() {
-   return _QuizState();
+    return _QuizState();
   }
-
 }
+
 //leading underscore used to define private class
 //classname + state is nsaminig convention
-class _QuizState extends State<Quiz>{
-     var activeScreen =  'start-screen';//widget are also normal objects hence can be assigned to variables
+class _QuizState extends State<Quiz> {
+  List<String> selectedAnswers = [];
 
-// @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//      activeScreen =  StartScreen(switchScreen);//widget are also normal objects hence can be assigned to variables
+  var activeScreen =
+      'start-screen'; //widget are also normal objects hence can be assigned to variables
 
-//   }
+  void switchScreen() {
+    //this setState method will run build method again
+    setState(() {
+      activeScreen = 'questions-screen';
 
-void switchScreen (){
-  //this setState method will run build method again
-setState(() {
-    activeScreen = 'questions-screen';
+      // activeScreen = const QuestionsScreen();
+    });
+  }
 
-  // activeScreen = const QuestionsScreen();
-});
-}
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        selectedAnswers = [];
+        activeScreen = 'results_screen';
+      });
+    }
+  }
+
   @override
   Widget build(context) {
+    Widget ScreenWidget = StartScreen(switchScreen);
 
-Widget ScreenWidget= StartScreen(switchScreen);
+    if (activeScreen == 'questions-screen') {
+      ScreenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );
+    }
 
-if(activeScreen =='questions-screen')
-      ScreenWidget = const QuestionsScreen() ;
-  
-
-return MaterialApp(
-  title: "Quiz APP",
-  home: Scaffold(
-    body: Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 78, 13, 151),
-            Color.fromARGB(255, 107 , 15, 168)
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight
+    if (activeScreen == 'results_screen') {
+      ScreenWidget =  ResultsScreen(
+        chosenAnswers:selectedAnswers
+        );
+    }
+    return MaterialApp(
+        title: "Quiz APP",
+        home: Scaffold(
+            body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 78, 13, 151),
+              Color.fromARGB(255, 107, 15, 168)
+            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
           ),
-      ),
-      child:ScreenWidget,
-      )
-    )
-  ); }
-
+          child: ScreenWidget,
+        )));
+  }
 }
