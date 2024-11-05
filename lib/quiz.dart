@@ -12,11 +12,11 @@ class Quiz extends StatefulWidget {
     return _QuizState();
   }
 }
-
+ 
 //leading underscore used to define private class
 //classname + state is nsaminig convention
 class _QuizState extends State<Quiz> {
-  List<String> selectedAnswers = [];
+  List<String> _selectedAnswers = []; //leading underscore make them private class or variable
 
   var activeScreen =
       'start-screen'; //widget are also normal objects hence can be assigned to variables
@@ -31,12 +31,12 @@ class _QuizState extends State<Quiz> {
   }
 
   void chooseAnswer(String answer) {
-    selectedAnswers.add(answer);
+    _selectedAnswers.add(answer);
 
-    if (selectedAnswers.length == questions.length) {
+    if (_selectedAnswers.length == questions.length) {
       setState(() {
-        // selectedAnswers = [];
-        activeScreen = 'results_screen';
+        // _selectedAnswers = [];
+        activeScreen = 'results_screen'; 
       });
     }
   }
@@ -53,7 +53,7 @@ class _QuizState extends State<Quiz> {
 
     if (activeScreen == 'results_screen') {
       ScreenWidget =  ResultsScreen(
-        chosenAnswers:selectedAnswers
+        chosenAnswers:_selectedAnswers
         );
     }
     return MaterialApp(

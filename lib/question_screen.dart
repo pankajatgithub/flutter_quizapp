@@ -56,7 +56,7 @@ final currentQuestion = questions[currentQuestionIndex];
          //numbers added as single value to list, const moreNumers = [...numbers,4],it is equal to [1,2,3,4],
          //numbers added as multiple values
          //map does not change the original list, shuffle changes original list
-           ...currentQuestion.getShuffledAnswer().map((answer){
+           ...currentQuestion.ShuffledAnswers.map((answer){
             return AnswerButton(
               answerText:answer,
             onTap:(){answerQuestion(answer);

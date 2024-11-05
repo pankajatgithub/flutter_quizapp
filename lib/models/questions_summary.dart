@@ -9,25 +9,31 @@ class QuestionsSummary extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
    
-    return Column(
-      children: summaryData.map((data){
-           return Row(
-            children: [
-      Text(((data['question_index'] as int) + 1).toString()), //typecasting using as
-           Expanded(
-             child: Column(
-              children: [
-                     Text(data['question']as String),
-             const SizedBox(height:5),
-             Text(data['user_answer'] as String),
-             Text(data['correct_answer'] as String)
-              ],
-             ),
-           ),
-           
-            ],
-           );
-      }).toList(), //map retuen iterable object, it can be coneverted to list using toList
+    return SizedBox(
+       height:300,
+      child: SingleChildScrollView(
+        child: Column(
+         
+          children: summaryData.map((data){
+               return Row(
+                children: [
+          Text(((data['question_index'] as int) + 1).toString()), //typecasting using as
+               Expanded(
+                 child: Column(
+                  children: [
+                         Text(data['question']as String),
+                 const SizedBox(height:5),
+                 Text(data['user_answer'] as String),
+                 Text(data['correct_answer'] as String)
+                  ],
+                 ),
+               ),
+               
+                ],
+               );
+          }).toList(), //map retuen iterable object, it can be coneverted to list using toList
+        ),
+      ),
     );
 
   }
